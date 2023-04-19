@@ -1,69 +1,45 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { fetchPopularMovies } from './api/popularmovies';
+import { fetchPopularSeries } from './api/popularseries';
 
-export default function PopularMovies() {
-  const [movies, setMovies] = useState([]);
+export default function PopularSerie() {
+  const [series, setSeries] = useState([]);
   const [likes, setLikes] = useState({});
-  const [sortBy, setSortBy] = useState('popularity'); // default sort by popularity
-  const [searchTerm, setSearchTerm] = useState('');
+  const [filter, setFilter] = useState('');
 
   useEffect(() => {
     async function fetchData() {
-      const popularMovies = await fetchPopularMovies();
-      setMovies(popularMovies);
+      const popularSeries = await fetchPopularSeries();
+      setSeries(popularSeries);
     }
     fetchData();
   }, []);
 
-  function handleLike(movieId) {
+  function handleLike(seriesId) {
     const newLikes = { ...likes };
-    newLikes[movieId] = true;
+    newLikes[seriesId] = true;
     setLikes(newLikes);
   }
 
-  function handleSortBy(event) {
-    setSortBy(event.target.value);
+  function handleFilterChange(event) {
+    setFilter(event.target.value);
   }
 
-  function getSortedMovies() {
-    const sortedMovies = [...movies];
-    if (sortBy === 'popularity') {
-      sortedMovies.sort((a, b) => b.popularity - a.popularity);
-    } else if (sortBy === 'release-date') {
-      sortedMovies.sort((a, b) => {
-        const dateA = new Date(a.release_date);
-        const dateB = new Date(b.release_date);
-        return dateB - dateA;
-      });
-    }
-    return sortedMovies.filter(movie => {
-      const title = movie.title.toLowerCase();
-      const overview = movie.overview.toLowerCase();
-      return title.includes(searchTerm.toLowerCase()) || overview.includes(searchTerm.toLowerCase());
-    });
-  }
+  const filteredSeries = series.filter((serie) =>
+    serie.name.toLowerCase().includes(filter.toLowerCase())
+  );
 
   return (
     <div className="container">
       <div className="header">
         <Link href="/popularmovies"><h1>Popular Movies</h1></Link>
         <Link href="/popularseries"><h1>Popular Series</h1></Link>
-        <div className="search-container">
-          <input
-            type="text"
-            placeholder="Search movies"
-            value={searchTerm}
-            onChange={e => setSearchTerm(e.target.value)}
-          />
-        </div>
-      </div>
-      <div className="sort-by">
-        <label>Filter</label>
-        <select value={sortBy} onChange={handleSortBy}>
-          <option value="popularity">Popularity</option>
-          <option value="release-date">Release Date</option>
-        </select>
+        <input
+          type="text"
+          placeholder="Search somethings"
+          value={filter}
+          onChange={handleFilterChange}
+        />
       </div>
       <table className="table">
         <thead>
@@ -79,30 +55,30 @@ export default function PopularMovies() {
           </tr>
         </thead>
         <tbody>
-          {getSortedMovies().map((movie) => (
-            <tr key={movie.id}>
+          {filteredSeries.map((serie) => (
+            <tr key={serie.id}>
               <td>
                 <img
-                  src={`https://image.tmdb.org/t/p/w92/${movie.poster_path}`}
-                  alt={`Poster for ${movie.title}`}
+                  src={`https://image.tmdb.org/t/p/w92/${serie.poster_path}`}
+                  alt={`Poster for ${serie.name}`}
                   width="700"
                   height="500"
                 />
               </td>
               <td>
-                <Link href={`/movie/${movie.id}`}>
-                  <button>{movie.title}</button>
+                <Link href={`/serie/${serie.id}`} passHref>
+                  <button>{serie.name}</button>
                 </Link>
               </td>
-              <td>{movie.release_date}</td>
-              <td>{movie.popularity}</td>
-              <td>{movie.overview}</td>
+              <td>{serie.first_air_date}</td>
+              <td>{serie.popularity}</td>
+              <td>{serie.overview}</td>
               <td>
                 <button
-                  disabled={likes[movie.id]}
-                  onClick={() => handleLike(movie.id)}
+                  disabled={likes[serie.id]}
+                  onClick={() => handleLike(serie.id)}
                 >
-                  {likes[movie.id] ? '❤️' : '🤍'}
+                  {likes[serie.id] ? '❤️' : '🤍'}
                 </button>
               </td>
             </tr>

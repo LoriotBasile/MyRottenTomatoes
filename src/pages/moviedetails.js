@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { fetchMovieDetails } from '../../api/moviedetails';
+import { fetchMovieDetails, fetchMovieReviews } from '../../api';
 
 export default function MovieDetails() {
   const [movie, setMovie] = useState({});
+  const [reviews, setReviews] = useState([]);
   const router = useRouter();
 
   useEffect(() => {
     async function fetchData() {
       const { movieId } = router.query;
       const movieDetails = await fetchMovieDetails(movieId);
+      const movieReviews = await fetchMovieReviews(movieId);
       setMovie(movieDetails);
+      setReviews(movieReviews);
     }
     fetchData();
   }, [router.query]);
@@ -25,6 +28,14 @@ export default function MovieDetails() {
           <h1>{movie.title}</h1>
           <p>Budget: {movie.budget}</p>
           <p>Description: {movie.overview}</p>
+          <div className="movie-reviews">
+            {reviews.map((review, index) => (
+              <div key={index}>
+                <p>Author: {review.author}</p>
+                <p>Content: {review.content}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
