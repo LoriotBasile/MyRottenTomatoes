@@ -6,6 +6,7 @@ export default function PopularSerie() {
   const [series, setSeries] = useState([]);
   const [likes, setLikes] = useState({});
   const [filter, setFilter] = useState('');
+  const [sort, setSort] = useState('');
 
   useEffect(() => {
     async function fetchData() {
@@ -25,15 +26,49 @@ export default function PopularSerie() {
     setFilter(event.target.value);
   }
 
-  const filteredSeries = series.filter((serie) =>
-    serie.name.toLowerCase().includes(filter.toLowerCase())
-  );
+  function handleSortChange(event) {
+    setSort(event.target.value);
+  }
+
+  const filteredSeries = series
+    .filter((serie) =>
+      serie.name.toLowerCase().includes(filter.toLowerCase())
+    )
+    .sort((a, b) => {
+      if (sort === 'popularity') {
+        return b.popularity - a.popularity;
+      } else if (sort === 'release') {
+        return new Date(b.first_air_date) - new Date(a.first_air_date);
+      } else {
+        return 0;
+      }
+    });
 
   return (
     <div className="container">
       <div className="header">
         <Link href="/popularmovies"><h1>Popular Movies</h1></Link>
-        <Link href="/popularseries"><h1>Popular Series</h1></Link>
+        <button className="sort-btn">Sort by</button>
+        <div className="sort-options">
+          <label>
+            <input
+              type="radio"
+              value="popularity"
+              checked={sort === 'popularity'}
+              onChange={handleSortChange}
+            />
+            Popularity
+          </label>
+          <label>
+            <input
+              type="radio"
+              value="release"
+              checked={sort === 'release'}
+              onChange={handleSortChange}
+            />
+            Release date
+          </label>
+        </div>
         <input
           type="text"
           placeholder="Search somethings"
