@@ -1,83 +1,44 @@
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import { fetchMovieDetails, fetchMovieReviews } from '../../api';
+import { Flex, Box, Text, Image, Button } from '@chakra-ui/react';
+import { fetchMovieDetails, fetchMovieReviews } from '../api/movies';
 
-export default function MovieDetails() {
-  const [movie, setMovie] = useState({});
-  const [reviews, setReviews] = useState([]);
-  const router = useRouter();
-
-  useEffect(() => {
-    async function fetchData() {
-      const { movieId } = router.query;
-      const movieDetails = await fetchMovieDetails(movieId);
-      const movieReviews = await fetchMovieReviews(movieId);
-      setMovie(movieDetails);
-      setReviews(movieReviews);
-    }
-    fetchData();
-  }, [router.query]);
+export default function MovieDetails({ movie, reviews }) {
+  const imageUrl = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
 
   return (
-    <div className="container">
-      <div className="movie-details">
-        <div className="movie-image">
-          <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={`Poster for ${movie.title}`} />
-        </div>
-        <div className="movie-info">
-          <h1>{movie.title}</h1>
-          <p>Budget: {movie.budget}</p>
-          <p>Description: {movie.overview}</p>
-          <div className="movie-reviews">
-            {reviews.map((review, index) => (
-              <div key={index}>
-                <p>Author: {review.author}</p>
-                <p>Content: {review.content}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <style jsx>{`
-        .container {
-          max-width: 1000px;
-          margin: 0 auto;
-          padding: 1rem;
-        }
-
-        .movie-details {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 2rem;
-        }
-
-        .movie-image {
-          flex-basis: 40%;
-          margin-right: 2rem;
-        }
-
-        .movie-image img {
-          width: 100%;
-          height: auto;
-        }
-
-        .movie-info {
-          flex-basis: 55%;
-        }
-
-        h1 {
-          margin-bottom: 1rem;
-        }
-
-        p {
-          font-size: 1.1rem;
-          line-height: 1.5;
-          margin-bottom: 1rem;
-        }
-      `}</style>
-    </div>
+    <Flex alignItems="center">
+      <Box flex="1" mr="4">
+        <Image src={imageUrl} alt={movie.title} />
+      </Box>
+      <Box flex="3">
+        <Text fontSize="2xl" fontWeight="bold" mb="4">{movie.title}</Text>
+        <Text fontSize="xl" mb="2">Budget: {movie.budget}€</Text>
+        <Text fontSize="xl" mb="2">Actors: {movie.credits?.cast?.slice(0, 3).map(actor => actor.name).join(', ')}</Text>
+        <Text fontSize="xl" mb="4">Description: {movie.overview}</Text>
+        <Text fontSize="2xl" fontWeight="bold" mb="4">Reviews:</Text>
+        <Box>
+          {reviews.slice(0, 1).map(review => (
+            <Box key={review.id} mb="2">
+              <Text fontSize="xl" fontWeight="bold">{review.author}</Text>
+              <Text fontSize="lg">{review.content}</Text>
+            </Box>
+          ))}
+          {reviews.length > 1 && (
+            <Button size="sm" onClick={() => alert('TODO: load more reviews')}>Load more reviews</Button>
+          )}
+        </Box>
+      </Box>
+    </Flex>
   );
+}
+
+export async function getServerSideProps(context) {
+  const { id } = context.query;
+  const movie = await fetchMovieDetails(id);
+  const reviews = await fetchMovieReviews(id);
+  return {
+    props: {
+      movie,
+      reviews,
+    },
+  };
 }
