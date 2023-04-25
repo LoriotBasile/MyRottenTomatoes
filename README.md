@@ -1,5 +1,28 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+# Rotten Tomatoes 
+
+## Résumé : 
+Ce projet est un projet Rotten Tomatoe réalisé en deux semaines par trois étudiants, Basile Loriot, Marie Domps et Léo Maliczak. 
+Rotten Tomatoes est un site web proposant la visibilité	des dernières sorties de films ou de séries grâce à la base de données The Movie database (https://www.themoviedb.org/).
+Nous avons mis en place des routes grâce aux API présentes dans cette database pour récupérer les informations des différents films et des différentes séries présents sur la Database. 
+
+
+
+## Langages et technologies 
+Nous avons pu réaliser ce projet grâce à Next JS, HTML, CSS ainsi que Chakra UI.
+Nous avons pu déployer notre site internet Rotten Tomatoes grâce à Vercel.
+
+
+
+
+# Membres du projet :
+Basile Loriot - basile.loriot@epitech.digital ( https://github.com/LoriotBasile )
+Marie Domps - marie.domps@epitech.digital ( https://github.com/domps )
+Léo Maliczak - leo.maliczak@epitech.digital ( https://github.com/Leooolm )
+
+
+
 ## Getting Started
 
 First, run the development server:
