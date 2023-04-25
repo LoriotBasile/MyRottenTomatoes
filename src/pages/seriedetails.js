@@ -1,4 +1,4 @@
-import { fetchTVDetails, fetchTVReviews } from '../api/tvdetails';
+import { fetchTVDetails, fetchTVReviews } from '../api/seriedetails';
 
 export default function TVDetails({ tv, reviews }) {
   const imageUrl = `https://image.tmdb.org/t/p/w500/${tv.poster_path}`;
@@ -6,7 +6,7 @@ export default function TVDetails({ tv, reviews }) {
   return (
     <div className="tv-details-container">
       <div className="tv-details-image-container">
-        <img src={imageUrl} alt={tv.name} className="tv-details-image" />
+        <image src={imageUrl} alt={tv.name} className="tv-details-image" />
       </div>
       <div className="tv-details-content-container">
         <h1>{tv.name}</h1>

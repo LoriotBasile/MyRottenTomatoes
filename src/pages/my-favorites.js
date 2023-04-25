@@ -38,7 +38,7 @@ export default function MyFavorites() {
                   <td>
                     <Link href={`/movie/${movie.id}`}>
                       <a>
-                        <img src={`https://image.tmdb.org/t/p/w92/${movie.poster_path}`} alt={`Poster for ${movie.title}`} width="700" height="500" />
+                        <image src={`https://image.tmdb.org/t/p/w92/${movie.poster_path}`} alt={`Poster for ${movie.title}`} width="700" height="500" />
                       </a>
                     </Link>
                   </td>
@@ -61,7 +61,7 @@ export default function MyFavorites() {
           </tbody>
         </table>
       ) : (
-        <p>You haven't added any movies to your favorites yet.</p>
+        <p>You haven`t added any movies to your favorites yet.</p>
       )}
 
       <style jsx>{`

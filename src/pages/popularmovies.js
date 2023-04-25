@@ -82,7 +82,7 @@ export default function PopularMovies() {
           {getSortedMovies().map((movie) => (
             <tr key={movie.id}>
               <td>
-                <img
+                <image
                   src={`https://image.tmdb.org/t/p/w92/${movie.poster_path}`}
                   alt={`Poster for ${movie.title}`}
                   width="700"

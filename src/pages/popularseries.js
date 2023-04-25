@@ -16,7 +16,7 @@ export default function PopularSerie() {
     fetchData();
   }, []);
 
-  function handleLike(seriesId) {
+  function handleLike(seriesId) { 
     const newLikes = { ...likes };
     newLikes[seriesId] = true;
     setLikes(newLikes);
@@ -48,7 +48,7 @@ export default function PopularSerie() {
     <div className="container">
       <div className="header">
         <Link href="/popularmovies"><h1>Popular Movies</h1></Link>
-        <button className="sort-btn">Sort by</button>
+        <button className="sort-btn"></button>
         <div className="sort-options">
           <label>
             <input
@@ -93,10 +93,10 @@ export default function PopularSerie() {
           {filteredSeries.map((serie) => (
             <tr key={serie.id}>
               <td>
-                <img
+                <image
                   src={`https://image.tmdb.org/t/p/w92/${serie.poster_path}`}
                   alt={`Poster for ${serie.name}`}
-                  width="700"
+                  width="2000"
                   height="500"
                 />
               </td>
