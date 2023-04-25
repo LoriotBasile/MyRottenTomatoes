@@ -1,4 +1,4 @@
-import { fetchSerieDetails, fetchSerieReviews } from '../api/seriedetails';
+import { fetchSerieDetails, fetchSerieReviews } from './api/seriedetails';
 
 export default function TVDetails({ tv, reviews }) {
   const imageUrl = `https://image.tmdb.org/t/p/w500/${tv.poster_path}`;

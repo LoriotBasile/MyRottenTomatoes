@@ -1,5 +1,5 @@
 import { Flex, Box, Text, Image, Button } from '@chakra-ui/react';
-import { fetchMovieDetails, fetchMovieReviews } from '../api/moviedetails';
+import { fetchMovieDetails, fetchMovieReviews } from './api/moviedetails';
 
 export default function MovieDetails({ movie, reviews }) {
   const imageUrl = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
