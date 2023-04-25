@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { fetchPopularMovies } from './api/popularmovies';
+import Image from 'next/image'
 
 export default function PopularMovies() {
   const [movies, setMovies] = useState([]);
@@ -82,7 +83,7 @@ export default function PopularMovies() {
           {getSortedMovies().map((movie) => (
             <tr key={movie.id}>
               <td>
-                <image
+                <Image
                   src={`https://image.tmdb.org/t/p/w92/${movie.poster_path}`}
                   alt={`Poster for ${movie.title}`}
                   width="700"

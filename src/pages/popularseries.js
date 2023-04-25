@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { fetchPopularSeries } from './api/popularseries';
+import Image from 'next/image'
 
 export default function PopularSerie() {
   const [series, setSeries] = useState([]);
@@ -93,7 +94,7 @@ export default function PopularSerie() {
           {filteredSeries.map((serie) => (
             <tr key={serie.id}>
               <td>
-                <image
+                <Image
                   src={`https://image.tmdb.org/t/p/w92/${serie.poster_path}`}
                   alt={`Poster for ${serie.name}`}
                   width="2000"

@@ -1,4 +1,4 @@
-import { fetchTVDetails, fetchTVReviews } from '../api/seriedetails';
+import { fetchSerieDetails, fetchSerieReviews } from '../api/seriedetails';
 
 export default function TVDetails({ tv, reviews }) {
   const imageUrl = `https://image.tmdb.org/t/p/w500/${tv.poster_path}`;
@@ -32,8 +32,8 @@ export default function TVDetails({ tv, reviews }) {
 
 export async function getServerSideProps(context) {
   const { id } = context.query;
-  const tv = await fetchTVDetails(id);
-  const reviews = await fetchTVReviews(id);
+  const tv = await fetchSerieDetails(id);
+  const reviews = await fetchSerieReviews(id);
   return {
     props: {
       tv,
