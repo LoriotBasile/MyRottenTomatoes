@@ -17,9 +17,9 @@ Nous avons pu déployer notre site internet Rotten Tomatoes grâce à Vercel.
 
 
 # Membres du projet :
-Basile Loriot - basile.loriot@epitech.digital ( https://github.com/LoriotBasile )
-Marie Domps - marie.domps@epitech.digital ( https://github.com/domps )
-Léo Maliczak - leo.maliczak@epitech.digital ( https://github.com/Leooolm )
+* Basile Loriot - basile.loriot@epitech.digital ( https://github.com/LoriotBasile )
+* Marie Domps - marie.domps@epitech.digital ( https://github.com/domps )
+* Léo Maliczak - leo.maliczak@epitech.digital ( https://github.com/Leooolm )
 
 
 
