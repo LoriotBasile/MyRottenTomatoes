@@ -72,7 +72,7 @@ export default function PopularSerie() {
         </div>
         <input
           type="text"
-          placeholder="Search somethings"
+          placeholder="Search Series"
           value={filter}
           onChange={handleFilterChange}
         />

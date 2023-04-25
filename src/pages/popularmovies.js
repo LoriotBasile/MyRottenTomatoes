@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { fetchPopularMovies } from './api/popularmovies';
 import Image from 'next/image'
+import { Link as ChakraLink, Button, Flex, Icon } from "@chakra-ui/react";
+import { FaUser } from "react-icons/fa";
 
 export default function PopularMovies() {
   const [movies, setMovies] = useState([]);
@@ -48,6 +50,18 @@ export default function PopularMovies() {
   return (
     <div className="container">
       <div className="header">
+      <Flex>
+  <ChakraLink as={Link} href="/login">
+    <Button
+      leftIcon={<Icon as={FaUser} />}
+      colorScheme="blue"
+      variant="solid"
+      size="md"
+    >
+      Login
+    </Button>
+  </ChakraLink>
+</Flex>
         <Link href="/popularmovies"><h1>Popular Movies</h1></Link>
         <Link href="/popularseries"><h1>Popular Series</h1></Link>
         <div className="search-container">
@@ -60,7 +74,7 @@ export default function PopularMovies() {
         </div>
       </div>
       <div className="sort-by">
-        <label>Filter</label>
+        <label></label>
         <select value={sortBy} onChange={handleSortBy}>
           <option value="popularity">Popularity</option>
           <option value="release-date">Release Date</option>
