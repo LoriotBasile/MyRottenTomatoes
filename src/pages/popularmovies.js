@@ -4,12 +4,15 @@ import { fetchPopularMovies } from './api/popularmovies';
 import Image from 'next/image'
 import { Link as ChakraLink, Button, Flex, Icon } from "@chakra-ui/react";
 import { FaUser } from "react-icons/fa";
+import { BiLogOut } from 'react-icons/bi';
+import { useRouter } from 'next/router';
 
 export default function PopularMovies() {
   const [movies, setMovies] = useState([]);
   const [likes, setLikes] = useState({});
   const [sortBy, setSortBy] = useState('popularity'); // default sort by popularity
   const [searchTerm, setSearchTerm] = useState('');
+  const router = useRouter();
 
   useEffect(() => {
     async function fetchData() {
@@ -50,18 +53,21 @@ export default function PopularMovies() {
   return (
     <div className="container">
       <div className="header">
-      <Flex>
-  <ChakraLink as={Link} href="/login">
-    <Button
-      leftIcon={<Icon as={FaUser} />}
-      colorScheme="blue"
-      variant="solid"
-      size="md"
-    >
-      Login
-    </Button>
-  </ChakraLink>
-</Flex>
+        <Flex>
+          <ChakraLink as={Link} href="/login">
+            <Button
+              leftIcon={<Icon as={FaUser} />}
+              colorScheme="blue"
+              variant="solid"
+              size="md"
+            >
+              Login
+            </Button>
+          </ChakraLink>
+        </Flex>
+        <Button variant="outline" leftIcon={<BiLogOut />} onClick={() => router.push('/login')}>
+          Logout
+        </Button>
         <Link href="/popularmovies"><h1>Popular Movies</h1></Link>
         <Link href="/popularseries"><h1>Popular Series</h1></Link>
         <div className="search-container">
